@@ -3,8 +3,7 @@
 .PHONY: all
 all: info docker test ## Run all targets.
 
-.PHONY: test ## Run the test suite
-test: \
+TEST_TARGETS := \
 	info \
 	validate-container-image-labels \
 	docker-build-check \
@@ -46,6 +45,22 @@ test: \
 	test-linters-expect-success-suppress-output-on-success \
 	test-linters-expect-success-suppress-output-on-success-log-level-notice \
 	test-linters-fix-mode
+
+.PHONY: test ## Run the test suite
+test:
+	@set -o errexit; \
+	for target in $(TEST_TARGETS); do \
+		printf '\n==> Running test target: %s\n' "$${target}"; \
+		$(MAKE) --no-print-directory "$${target}" || { \
+			status="$$?"; \
+			printf '\n[ERROR] Test target failed: %s\n' "$${target}"; \
+			exit "$${status}"; \
+		}; \
+	done
+
+.PHONY: print-test-targets
+print-test-targets:
+	@printf '%s\n' $(TEST_TARGETS)
 
 .PHONY: audit ## Run dependency audits
 audit: \

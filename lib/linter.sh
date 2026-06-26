@@ -3,6 +3,12 @@
 set -o nounset
 set -o pipefail
 
+MEGALINTER_RUNTIME_UID="${MEGALINTER_UID:-}"
+MEGALINTER_RUNTIME_GID="${MEGALINTER_GID:-}"
+if [ "$(id -u)" -eq 0 ] && [ -n "${MEGALINTER_RUNTIME_UID}" ] && [ -n "${MEGALINTER_RUNTIME_GID}" ] && [ "${MEGALINTER_USER_SWITCHED:-false}" != "true" ]; then
+  exec /usr/bin/setup-runtime-user.sh "$@"
+fi
+
 # Version of the Super-linter (standard,slim,etc)
 IMAGE="${IMAGE:-standard}"
 

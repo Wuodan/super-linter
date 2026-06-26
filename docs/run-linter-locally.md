@@ -14,7 +14,7 @@ docker run \
   -e RUN_LOCAL=true \
   -v /path/to/local/codebase:/tmp/lint \
   --rm \
-  ghcr.io/super-linter/super-linter:latest
+  ghcr.io/wuodan/super-linter:latest
 ```
 
 This example uses the `latest` container image version. If you're trying to
@@ -24,7 +24,7 @@ recommend that you **refer to a specific version instead**.
 Notes:
 
 - To run against a single file you can use:
-  `docker run -e RUN_LOCAL=true -e USE_FIND_ALGORITHM=true -v /path/to/local/codebase/file:/tmp/lint/file ghcr.io/super-linter/super-linter`
+  `docker run -e RUN_LOCAL=true -e USE_FIND_ALGORITHM=true -v /path/to/local/codebase/file:/tmp/lint/file ghcr.io/wuodan/super-linter`
 - You need to pass the `RUN_LOCAL` option to bypass some of the GitHub Actions
   checks, as well as the mapping of your local codebase to `/tmp/lint`.
 - If you want to override the `/tmp/lint` folder, you can set the
@@ -57,7 +57,7 @@ docker run \
   -v /path/to/your/worktree:/tmp/lint \
   -v /path/to/main/repo/.git:/path/to/main/repo/.git \
   --rm \
-  ghcr.io/super-linter/super-linter:latest
+  ghcr.io/wuodan/super-linter:latest
 ```
 
 #### Finding Your Git Common Directory
@@ -98,7 +98,7 @@ snippet:
 super-linter:
   stage: lint
   image:
-    name: ghcr.io/super-linter/super-linter:latest # set a stable version tag and the sha checksum in production for reproducible runs
+    name: ghcr.io/wuodan/super-linter:latest # set a stable version tag and the sha checksum in production for reproducible runs
     entrypoint: [""]
   script:
     - git fetch origin $CI_DEFAULT_BRANCH # clone the default branch from this repository
@@ -137,7 +137,7 @@ them accordingly:
        -e RUN_LOCAL=true \
        --env-file ".github/super-linter.env" \
        -v "$(pwd)":/tmp/lint \
-       ghcr.io/super-linter/super-linter:latest
+       ghcr.io/wuodan/super-linter:latest
    ```
 
 1. Load the super-linter configuration file when running in GitHub Actions by

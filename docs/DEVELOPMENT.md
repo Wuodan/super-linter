@@ -158,7 +158,7 @@ Here is an example that runs the test suite against the `v8.2.1` container image
 version.
 
 ```shell
-CONTAINER_IMAGE_ID="ghcr.io/super-linter/super-linter:v8.2.1" \
+CONTAINER_IMAGE_ID="ghcr.io/wuodan/super-linter:v8.2.1" \
 make docker-pull test
 ```
 
